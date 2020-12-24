@@ -2,6 +2,7 @@ import React from 'react'
  import * as BooksAPI from './BooksAPI'
 import './App.css'
 import{ Book} from './Book/Book'
+import {BrowserRouter,Link,Route} from "react-router-dom"
 
 class BooksApp extends React.Component {
   state = {
@@ -53,12 +54,30 @@ if(this.state.books){
    wantToRead=this.state.books.filter(book=>book.shelf==="wantToRead")
  currentlyReading=this.state.books.filter(book=>book.shelf==="currentlyReading")
 }
+let allBooks=[]
+if(this.state.books.length){
+allBooks=[...this.state.books]
+}
+let allSearch=[]
+if(this.state.search.length){
+allSearch=[...this.state.search]
+}
+if(allSearch && allSearch.length && allBooks && allBooks.length){
+  for(let i=0;i<allBooks.length;i++){
+     for(let j=0;j<allSearch.length;j++){
+       if(allSearch[j].id=== allBooks[i].id){
+        allSearch[j]= allBooks[i]
+       }
+     }
+  }
+}
     return (
+      <BrowserRouter>
       <div className="app">
-        {this.state.showSearchPage ? (
+      <Route exact path="/search" render={()=>
           <div className="search-books">
             <div className="search-books-bar">
-              <button className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</button>
+             <Link to="/" ><button className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</button></Link>
               <div className="search-books-input-wrapper">
               
               
@@ -81,13 +100,15 @@ if(this.state.books){
             
                   <div className="bookshelf-books">
               <ol className="books-grid">
-                { this.state.search?this.state.search.map(book=><Book data={book} key={book.id} search={"none"} changeShelf={this.changeShelf}/>):<p>no result</p>}
+                { allSearch && allSearch.length?allSearch.map(book=><Book data={book} key={book.id} search={book.shelf} changeShelf={this.changeShelf}/>):<p>no result</p>}
               </ol>
            
             </div>
             </div>
           </div>
-        ) : (
+      }>
+      </Route>
+      <Route exact path="/" render={()=>
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
@@ -127,11 +148,14 @@ if(this.state.books){
               </div>
             </div>
             <div className="open-search">
-              <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+              <Link  to="/search"><button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button></Link>
             </div>
           </div>
-        )}
+      }>
+
+      </Route>
       </div>
+      </BrowserRouter>
     )
   }
 }

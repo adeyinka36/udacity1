@@ -1,13 +1,17 @@
 import React from "react";
 
 export const Book = props =>{
-
+if(!props.data.imageLinks){
+  props.data.imageLinks={}
+  props.data.imageLinks.smallThumbnail="https://unsplash.com/photos/RrhhzitYizg"}
 
     return (
         <li>
         <div className="book" >
         <div className="book-top">
+        
           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:`url(${props.data.imageLinks.smallThumbnail})`}}></div>
+          
           <div className="book-shelf-changer">
         
             <select  value={props.search?props.search:props.data.shelf} onChange={(e)=>{e.preventDefault();props.changeShelf(props.data,e)}}>
