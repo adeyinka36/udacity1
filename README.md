@@ -1,5 +1,5 @@
 
-This is a project built with react for keepin track of books and grouping them into 3 categories:
+This is a project built with react for keeping track of books and grouping them into 3 categories:
 Read, Currently Reading and Want to read
 
 ## using the app

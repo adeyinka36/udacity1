@@ -14,7 +14,7 @@ if(!props.data.imageLinks){
           
           <div className="book-shelf-changer">
         
-            <select  value={props.search?props.search:props.data.shelf} onChange={(e)=>{e.preventDefault();props.changeShelf(props.data,e)}}>
+            <select  value={props.search?props.search:"none"} onChange={(e)=>{e.preventDefault();props.changeShelf(props.data,e)}}>
               <option  value="move" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>

@@ -55,11 +55,11 @@ if(this.state.books){
  currentlyReading=this.state.books.filter(book=>book.shelf==="currentlyReading")
 }
 let allBooks=[]
-if(this.state.books.length){
+if(this.state.books&&this.state.books.length){
 allBooks=[...this.state.books]
 }
 let allSearch=[]
-if(this.state.search.length){
+if(this.state.search&&this.state.search.length){
 allSearch=[...this.state.search]
 }
 if(allSearch && allSearch.length && allBooks && allBooks.length){
@@ -120,7 +120,7 @@ if(allSearch && allSearch.length && allBooks && allBooks.length){
                   <div className="bookshelf-books">
                     <ol className="books-grid">
                      {currentlyReading.length?currentlyReading.map(book=>
-                       <Book data={book} key={book.id} changeShelf={this.changeShelf}/>
+                       <Book data={book} key={book.id} changeShelf={this.changeShelf} search={book.shelf}/>
                      ):<p>No books for this section</p>}
                     </ol>
                   </div>
@@ -130,7 +130,7 @@ if(allSearch && allSearch.length && allBooks && allBooks.length){
                   <div className="bookshelf-books">
                     <ol className="books-grid">
                     {wantToRead.length?wantToRead.map(book=>
-                       <Book data={book} key={book.id} changeShelf={this.changeShelf}/>
+                       <Book data={book} key={book.id} changeShelf={this.changeShelf} search={book.shelf}/>
                      ):<p>No books for this section</p>}
                     </ol>
                   </div>
@@ -140,7 +140,7 @@ if(allSearch && allSearch.length && allBooks && allBooks.length){
                   <div className="bookshelf-books">
                     <ol className="books-grid">
                     {read.length?read.map(book=>
-                       <Book data={book} key={book.id} changeShelf={this.changeShelf}/>
+                       <Book data={book} key={book.id} changeShelf={this.changeShelf} search={book.shelf}/>
                      ):<p>No books for this section</p>}
                     </ol>
                   </div>
